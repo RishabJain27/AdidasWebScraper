@@ -28,7 +28,7 @@ while scrollVal <= len:
 
 
 #connect to database
-client = MongoClient("mongodb+srv://rjain9:Ilikepie16%21@cluster0-wgm3y.mongodb.net/test?retryWrites=true&w=majority")
+client = MongoClient("mongodb+srv://<username>:<password>@cluster0-wgm3y.mongodb.net/test?retryWrites=true&w=majority")
 db = client["Shoes"]
 mycol = db["adidas"]
 
