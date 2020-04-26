@@ -1,2 +1,2 @@
 # AdidasWebScraper
-Scrapes Adidas website for newly released shoes. Uses Selenium as the webscraping tool.
+Scrapes Adidas website for newly released shoes. Inserts the data into a MongoDB database. Uses Selenium as the webscraping tool.
