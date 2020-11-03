@@ -34,7 +34,7 @@ db = client["Shoes"]
 mycol = db["adidas"]
 
 
-aTagsInLi = driver.find_elements_by_class_name('grid-item___eaXVb')
+aTagsInLi = driver.find_elements_by_class_name('grid-item___3rAkS')
 line_items=[]
 for a in aTagsInLi:
     #get site url for each shoe
