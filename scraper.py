@@ -3,6 +3,7 @@ import urllib.request
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import json
 from pymongo import MongoClient
 import sys
@@ -29,20 +30,20 @@ while scrollVal <= len:
 
 
 #connect to database
-client = MongoClient("mongodb+srv://rjain9:Ilikepie16%21@cluster0-wgm3y.mongodb.net/test?retryWrites=true&w=majority")
+client = MongoClient("mongodb+srv://rjain9:Ilikepie16@sneakers.1azjgzw.mongodb.net/?retryWrites=true&w=majority")
 db = client["Shoes"]
 mycol = db["adidas"]
 
 
-aTagsInLi = driver.find_elements_by_class_name('grid-item___3rAkS')
+aTagsInLi = driver.find_elements("xpath", "//div[@class='glass-product-card-container with-variation-carousel']")
 line_items=[]
 for a in aTagsInLi:
     #get site url for each shoe
-    siteTag = a.find_element_by_tag_name('a')
+    siteTag = a.find_element(By.TAG_NAME,'a')
     site = siteTag.get_attribute('href')
 
     #get img source for each shoe
-    imgTag = a.find_element_by_tag_name('img')
+    imgTag = a.find_element(By.TAG_NAME, 'img')
     image_url = imgTag.get_attribute('src')
     print(image_url)
 
@@ -50,7 +51,7 @@ for a in aTagsInLi:
     name = imgTag.get_attribute('title')
 
     #get category
-    category = a.find_element_by_class_name('gl-product-card__category').text
+    category = a.find_element("xpath", "//p[@class='glass-product-card__category']").text
     print(category)
 
     #determine gender
