@@ -37,6 +37,7 @@ mycol = db["adidas"]
 
 aTagsInLi = driver.find_elements("xpath", "//div[@class='glass-product-card-container with-variation-carousel']")
 line_items=[]
+categoryCounter = 0
 for a in aTagsInLi:
     #get site url for each shoe
     siteTag = a.find_element(By.TAG_NAME,'a')
@@ -45,25 +46,22 @@ for a in aTagsInLi:
     #get img source for each shoe
     imgTag = a.find_element(By.TAG_NAME, 'img')
     image_url = imgTag.get_attribute('src')
-    print(image_url)
 
     #get name for each shoe
-    name = imgTag.get_attribute('title')
+    name = imgTag.get_attribute('alt')
 
-    #get category
-    category = a.find_element("xpath", "//p[@class='glass-product-card__category']").text
-    print(category)
+    category = a.find_elements("xpath", "//p[@class='glass-product-card__category']")[categoryCounter].text
 
     #determine gender
-    if "Men" in category:
+    if "Men" in name:
         gender = "Male"
-    elif "Women" in category:
+    elif "Women" in name:
         gender = "Female"
-    elif "Children" in category or "Youth" in category or "Infant" in category:
+    elif "Children" in name or "Youth" in name or "Infant" in name:
         gender = "Kid"
     else:
         gender = "Unisex"
-
+    
     #create json object for database
     myjson3 = {
                 'name': name,
@@ -74,6 +72,7 @@ for a in aTagsInLi:
                 'brand' : 'Adidas'
             }
     line_items.append(myjson3)
+    categoryCounter = categoryCounter + 1
 
 #clear existing db
 mycol.delete_many({})
